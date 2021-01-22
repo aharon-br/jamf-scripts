@@ -15,7 +15,7 @@ app="Slack"
 currentUser=$( ls -l /dev/console | cut -d " " -f4 )
 
 ## Get current version from website
-currentVersion=$( curl -s -L 'https://slack.com/downloads/mac' | grep -o "Version [0-9]\.[0-9][0-9]\.[0-9]" | tr -d "Version " )
+currentVersion=$( curl -s -L 'https://slack.com/downloads/mac' | egrep -o "Version [[:digit:]]{1,3}\.[[:digit:]]{1,3}\.[[:digit:]]{1,3}" | tr -d "Version " )
 
 ## Check is Slack is installed 
 	if [ ! -f "/Applications/$app.app/Contents/Info.plist" ] ; then

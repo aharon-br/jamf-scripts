@@ -35,14 +35,16 @@ fi
 running=$( ps -acx | grep -o "$4" )
 if [[ $running != $4 ]]
 	then
-		echo "$4 not running, proceeding"
+		echo "${date} $4 not running, proceeding"
 	else
-		echo "$4 running, exiting with error"
+		echo "${date} $4 running, exiting with error"
 		exit 1
 fi			
 
+# Transform app name in $4 to lowercase to search XML
+appName=$( echo "$4" | tr A-Z a-z )
 ## read latest avaialble version, and currently installed version
-latestVersion=$( curl -s -k -L https://macadmins.software/latest.xml | grep -o -a7 "com.microsoft.excel.standalone.365" | tail -1 | tr -d 'a-z' | tr -d '<>/' | awk '{print $1}' )
+latestVersion=$( curl -s -k -L https://macadmins.software/latest.xml | grep -o -a7 "com.microsoft.$appName.standalone.365" | tail -1 | tr -d 'a-z' | tr -d '<>/' | awk '{print $1}' )
 installedVersion=$( defaults read /Applications/Microsoft\ Excel.app/Contents/Info CFBundleShortVersionString )
 
 echo "Latest version is $latestVersion"
@@ -51,7 +53,7 @@ echo "Installed version is $installedVersion"
 ## If the latest version is  the same as the installed, print up to date. If it is not, proceed with install
 if [[ "$latestVersion" == "$installedVersion" ]]
 	then
-		echo "up to date"
+		echo "${date} up to date"
 	else
 		echo "not up to date, continuing with update"
 		echo "${date} Downloading Microsoft $4 version ${latestVersion}"
