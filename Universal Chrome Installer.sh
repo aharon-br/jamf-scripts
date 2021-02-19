@@ -66,7 +66,7 @@ appSignature=$( pkgutil --check-signature "$applicationPath" | grep "Status:" | 
 			if [[ $appSignature != *"signed by a certificate trusted"* ]]; then
 					echo "`date` $app is not trusted, removing $app"
 					rm -rf "$applicationPath"
-					"/Library/Application Support/JAMF/bin/jamfHelper.app/Contents/MacOS/jamfHelper" -windowType hud -title "Braze IT" -heading Installation Failure -description "Google Chrome failed security checks and could not be installed.                            Please request support at it.braze.com" -icon /private/var/braze.png -button1 Okay -defaultButton 0 -timeout 20
+					"/Library/Application Support/JAMF/bin/jamfHelper.app/Contents/MacOS/jamfHelper" -windowType hud -title "YOUR COMPANY" -heading "YOUR HEADING" -description "YOUR MESSAGE" -icon /private/var/PATH.TO.ICON.PNG -button1 Okay -defaultButton 0 -timeout 20
 					exit 1
 				else
 					echo "`date` $app trusted, install succesful"
